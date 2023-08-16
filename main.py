@@ -137,11 +137,9 @@ def main(config):
 
     if config.MODEL.RESUME:
         max_accuracy = load_checkpoint(config, model_without_ddp, optimizer, lr_scheduler, logger)
-        #auc, loss = validate(config, data_loader_val, model, is_validation=True)
-        auc, loss = validate(config, data_loader_train, model, is_validation=True)
+        auc, loss = validate(config, data_loader_val, model, is_validation=True)
         logger.info(f"Mean Accuracy of the network on the {len(dataset_val)} validation images auc mean: {auc:.2f}%")
         logger.info(f"Mean Loss of the network on the {len(dataset_val)} validation images: {loss:.5f}")
-#         #auc, loss = validate(config, data_loader_test, model, is_validation=False)
         auc, loss = validate(config, data_loader_test, model, is_validation=False)
         logger.info(f"Mean Accuracy of the network on the {len(dataset_test)} test images auc mean: {auc:.2f}%")
         logger.info(f"Mean Loss of the network on the {len(dataset_test)} test images: {loss:.5f}")
