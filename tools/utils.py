@@ -16,8 +16,6 @@ def gen_A(num_classes, adj_file, t=0.4, sig=0.3):
     _adj = _adj / _nums
     _adj[_adj < t] = 0
     _adj[_adj >= t] = 1
-    # _adj = _adj * 0.25 / (_adj.sum(0, keepdims=True) + 1e-6)
-    # _adj = _adj + np.identity(num_classes, np.int)
     _adj = (1-sig)*_adj + (sig / (_adj.sum(0, keepdims=True) + 1e-6))
     _adj = _adj + np.identity(num_classes, np.int64)
     return _adj
@@ -137,9 +135,6 @@ def multiAuc(y_true, y_pred):
 
 def plotRoc(y_true, y_score, is_validation):
     auc = multiAuc(y_true=y_true, y_pred=y_score)
-    label = ['Atelectasis', 'Cardiomegaly', 'Consolidation', 'Edema', 'Effusion', 'Emphysema', 'Fibrosis', 'Hernia', 'Infiltration', 'Mass', 'Nodule', 'Pleural_Thickening', 'Pneumonia', 'Pneumothorax']
-    
-#     label = ['Atelectasis', 'Cardiomegaly', 'Consolidation', 'Edema', 'Enlarged Cardiom.', 'Fracture', 'Lung Lesion', 'Lung Opacity', 'Effusion', 'Pleural Other', 'Pneumonia', 'Pneumothorax', 'Support Devices']
     lw = 2
     _, c = y_true.shape
     plt.figure(figsize=(7, 7))
